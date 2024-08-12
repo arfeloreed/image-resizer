@@ -1,3 +1,3 @@
 # Image resizer
 
-Made with ElectronJS. Currently in development.
+Made with ElectronJS. Just finished dev, up for testing for prod.
