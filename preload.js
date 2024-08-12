@@ -1,10 +1,23 @@
-window.addEventListener("DOMContentLoaded", () => {
-  const replaceText = (selector, text) => {
-    const element = document.getElementById(selector);
-    if (element) element.innerText = text;
-  };
+const { contextBridge, ipcRenderer } = require("electron");
 
-  for (const dependency of ["chrome", "node", "electron"]) {
-    replaceText(`${dependency}-version`, process.versions[dependency]);
-  }
+contextBridge.exposeInMainWorld("os", {
+  homedir: () => ipcRenderer.invoke("homedir"),
+});
+
+contextBridge.exposeInMainWorld("path", {
+  join: (arg1, arg2) => {
+    if (typeof arg1 === "string" && typeof arg2 === "string") {
+      return ipcRenderer.invoke("join", [arg1, arg2]);
+    } else {
+      throw new Error(
+        "Invalid arguments passed to path.join. Expected two strings.",
+      );
+    }
+  },
+});
+
+contextBridge.exposeInMainWorld("ipc", {
+  send: (channel, data) => ipcRenderer.send(channel, data),
+  on: (channel, func) =>
+    ipcRenderer.on(channel, (event, ...args) => func(...args)),
 });
