@@ -1,19 +1,34 @@
 {
   "name": "image-resizer",
-  "productName": "Image Resizer",
   "version": "1.0.0",
   "description": "An app to resize an image",
   "type": "module",
   "main": "main.js",
   "scripts": {
-    "start": "electron . --no-sandbox"
+    "start": "electron . --no-sandbox",
+    "dist": "electron-builder"
   },
-  "author": "Reed",
+  "author": {
+    "name": "Arfelo Reed",
+    "email": "arfeloreedtorralba@gmail.com"
+  },
   "license": "MIT",
   "dependencies": {
     "resize-img": "^2.0.0"
   },
   "devDependencies": {
-    "electron": "^31.3.1"
+    "electron": "^31.3.1",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.arfeloreed.ImageResizer",
+    "productName": "Image Resizer",
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "icon": "build/icon.png",
+      "category": "Graphics"
+    }
   }
 }

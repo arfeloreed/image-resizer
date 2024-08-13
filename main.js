@@ -5,7 +5,7 @@ import os from "os";
 import fs from "fs";
 import resizeImg from "resize-img";
 
-const isDev = process.env.NODE_ENV !== "production";
+const isDev = !app.isPackaged; // check if env is in dev or prod
 const isMac = process.platform === "darwin";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
